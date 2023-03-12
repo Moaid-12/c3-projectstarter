@@ -11,13 +11,7 @@ commands:
             # Your code here
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             #exit 1
-      - run:
-          name: Destroy frontend environments
-          when: on_fail
-          command: |
-            # Your code here
-            aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-            #exit 1
+  
             
 
 jobs:
@@ -56,6 +50,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
+
   test-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -70,6 +65,7 @@ jobs:
             cd frontend
             npm install
             npm run test   
+
   test-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -84,6 +80,7 @@ jobs:
             cd backend
             npm install
             npm run test
+
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -98,6 +95,7 @@ jobs:
             cd frontend
             npm install
             npm audit fix --audit-level=critical --force          
+
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -112,6 +110,7 @@ jobs:
             cd backend
             npm install
             npm audit fix --audit-level=critical --force
+
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli
@@ -128,6 +127,7 @@ jobs:
             --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
             --tags project=udapeople_backend
+      - destroy-environment
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -141,7 +141,7 @@ jobs:
           command: |
             # Your code here
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:Project,Values=udapeople_backend" \
+            --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --output text >> project/.circleci/ansible/inventory.txt
             #exit 1
       - persist_to_workspace:
