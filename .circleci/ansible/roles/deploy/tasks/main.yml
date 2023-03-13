@@ -7,14 +7,13 @@
 
 - name: Copy index test page
   template:
-    src: "~/project/artifact.tar.gz"
+    src: "/home/circleci/project/artifact.tar.gz"
     dest: "~/web/artifact.tar.gz"
     
 - name: tar archive dir 
   shell: |
     sudo apt install tar
-    tar -xf artifact.tar.gz -C ~/web
-    ls ~/web
+    tar -xzvf artifact.tar.gz -C ~/web
 - name: display content 
   shell: |
     ls ~/web    
