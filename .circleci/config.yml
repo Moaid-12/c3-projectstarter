@@ -140,9 +140,6 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - attach_workspace:
-          at: ~/
-      - run: cat inventory.txt
 
   configure-infrastructure:
     docker:
