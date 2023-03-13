@@ -209,14 +209,14 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run:
-          command: |
-            yum -y install tar gzip
-      - run:
-          name: install dependencies
-          command: |
-            curl --silent --location https://rpm.nodesource.com/setup_13.x | bash -
-            yum -y install nodejs
+#       - run:
+#           command: |
+#             yum -y install tar gzip
+#       - run:
+#           name: install dependencies
+#           command: |
+#             curl --silent --location https://rpm.nodesource.com/setup_13.x | bash -
+#             yum -y install nodejs
       - run:
           name: pick api for backend
           command: |
@@ -226,15 +226,15 @@ jobs:
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
-      - run:
-         name: Deploy frontend objects
-         command: |
-           cd frontend
-           npm install
-           npm run build
-           tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
-           aws s3 cp dist s3://udapeople-7807ef9 --recursive
-           #add ${CIRCLE_WORKFLOW_ID:0:7
+#       - run:
+#          name: Deploy frontend objects
+#          command: |
+#            cd frontend
+#            npm install
+#            npm run build
+#            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+#            aws s3 cp dist s3://udapeople-7807ef9 --recursive
+#            #add ${CIRCLE_WORKFLOW_ID:0:7
 workflows:
   default:
     jobs:
