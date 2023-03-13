@@ -159,7 +159,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-            cat ~/inventory.txt
+            cat ~/ansible/inventory.txt
             cat configure-server.yml
            #ansible-playbook -i inventory.txt configure-server.yml
 workflows:
@@ -180,4 +180,5 @@ workflows:
       #     filters:
       #       branches:
       #         only: [master]
-      - configure-infrastructure
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
