@@ -209,12 +209,12 @@ jobs:
             
   deploy-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:18.15.0
     steps:
       - checkout
       - run:
           command:
-            apt install gzip
+            yarn add gzip
       - run:
           name: install dependencies
           command: |
