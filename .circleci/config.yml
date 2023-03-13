@@ -228,6 +228,7 @@ jobs:
          command: |
            cd frontend
            aws --version
+           
 workflows:
   default:
     jobs:
