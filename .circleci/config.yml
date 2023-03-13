@@ -162,7 +162,7 @@ jobs:
           command: | 
             #ls ~/project/.circleci/ansible
             #cat configure-server.yml
-           ansible-playbook -i project/.circleci/ansible/inventory.txt configure-server.yml
+            ansible-playbook -i project/.circleci/ansible/inventory.txt configure-server.yml
 workflows:
   default:
     jobs:
