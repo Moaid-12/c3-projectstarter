@@ -140,8 +140,8 @@ jobs:
           command: |
             cd .circleci/ansible
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:Project,Values=udacity" \
             --output text >> inventory.txt
+            cat inventory.txt
 #       - destroy-environment
       - persist_to_workspace:
           root: ~/
