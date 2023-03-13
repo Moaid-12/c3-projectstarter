@@ -150,16 +150,18 @@ jobs:
 #               # You can get this ID in the section where you registered the SSH Key
 #               fingerprints: ["17:ad:46:99:4e:16:a7:f4:8c:f0:74:2f:c6:ee:47:28"] 
       
-      - attach_workspace:
-          at: ~/
+      
 #       - run:
 #           name: Install Ansible
 #           command: |
 #             pip install --user ansible
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run Playbook and Configure server
           command: |
-            ls ~/project
+            ls ~/
+            cat inventory.txt
             #cat configure-server.yml
            #ansible-playbook -i inventory.txt configure-server.yml
 workflows:
