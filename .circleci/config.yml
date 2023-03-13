@@ -156,10 +156,10 @@ jobs:
       - add_ssh_keys:
               # You can get this ID in the section where you registered the SSH Key
               fingerprints: ["17:ad:46:99:4e:16:a7:f4:8c:f0:74:2f:c6:ee:47:28"]    
-#       - run:
-#           name: Install Ansible
-#           command: |
-#             pip install --user ansible
+      - run:
+          name: Install Ansible
+          command: |
+            pip install --user ansible
       - attach_workspace:
           at: ~/
       - run:
@@ -167,8 +167,7 @@ jobs:
           command: | 
             cd .circleci/ansible
             cat inventory.txt
-            cat ~/project/.circleci/ansible/inventory.txt
-            #ansible-playbook -i inventory.txt configure-server.yml
+            ansible-playbook -i inventory.txt configure-server.yml
 workflows:
   default:
     jobs:
