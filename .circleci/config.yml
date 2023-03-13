@@ -235,6 +235,27 @@ jobs:
 #            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
 #            aws s3 cp dist s3://udapeople-7807ef9 --recursive
 #            #add ${CIRCLE_WORKFLOW_ID:0:7
+
+  deploy-backend:
+    docker:
+      - image: cimg/python:3.11.2
+    steps:
+      - checkout
+      - add_ssh_keys:
+              # You can get this ID in the section where you registered the SSH Key
+              fingerprints: ["17:ad:46:99:4e:16:a7:f4:8c:f0:74:2f:c6:ee:47:28"]    
+      - run: install Nodejs dependencies
+          command: |
+            pip install nodejs
+      - run: install dependencies
+          command: |
+            yum install tar gzip
+#       - run:
+#           name: Install Ansible
+#           command: |
+#             pip install --user ansible
+#       - attach_workspace:
+#           at: ~/
 workflows:
   default:
     jobs:
@@ -259,3 +280,4 @@ workflows:
 #           requires: [configure-infrastructure]
       - deploy-frontend
 #           requires: [run-migrations]
+      - deploy-backend
