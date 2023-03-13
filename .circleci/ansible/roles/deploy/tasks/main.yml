@@ -7,7 +7,7 @@
 
 - name: Copy index test page
   template:
-    src: "artifact.tar.gz"
+    src: "~/project/artifact.tar.gz"
     dest: "~/web/artifact.tar.gz"
     
 - name: tar archive dir 
