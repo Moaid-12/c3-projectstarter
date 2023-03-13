@@ -248,14 +248,14 @@ jobs:
           name: install Nodejs dependencies
           command: |
             
-            #apt install curl
-            #curl -fsSL https://deb.nodesource.com/setup_14.x | -E bash -
+            sudo apt install curl
+            curl -fsSL https://deb.nodesource.com/setup_14.x | -E bash -
             sudo apt-get install -y nodejs
             node --version
       - run: 
           name: install tar dependencies
           command: |
-            yum install tar gzip
+            sudo apt install tar gzip
 #       - run:
 #           name: Install Ansible
 #           command:|
