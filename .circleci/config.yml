@@ -159,7 +159,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-            ls ~/project/ansible
+            ls ~/project
             #cat configure-server.yml
            #ansible-playbook -i inventory.txt configure-server.yml
 workflows:
