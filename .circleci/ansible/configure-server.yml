@@ -18,8 +18,8 @@
       register: aptinstall
       apt:
          name: 
-          - python
-          - pip
+          - python3.8
+          - pip3
          state: latest
          update_cache: yes
       # Your code here
