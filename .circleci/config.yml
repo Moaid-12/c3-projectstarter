@@ -116,9 +116,9 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-#       - run:
-#           command: |
-#             yum -y install tar gzip
+      - run:
+          command: |
+            yum -y install tar gzip
       # - run:
       #     name: Ensure back-end infrastructure exists
       #     command: |
@@ -137,7 +137,7 @@ jobs:
       #       --tags project=udapeople_frontend
       # - destroy-environment
       - persist_to_workspace:
-          root: ~/
+          root: ~/project/.circleci
           paths:
             - project/.circleci/ansible/inventory.txt
 
@@ -161,6 +161,8 @@ jobs:
           name: Run Playbook and Configure server
           command: |
             ls ~/
+            ls ~/project
+            ls ~/project/.circleci
             #cat configure-server.yml
            #ansible-playbook -i inventory.txt configure-server.yml
 workflows:
