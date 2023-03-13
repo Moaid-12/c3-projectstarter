@@ -213,9 +213,6 @@ jobs:
     steps:
       - checkout
       - run:
-          command: |
-            yum -y install tar gzip
-      - run:
           name: install dependencies
           command: |
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
