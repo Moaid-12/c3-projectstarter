@@ -247,7 +247,7 @@ jobs:
       - run: 
           name: install Nodejs dependencies
           command: |
-            rm /var/lib/dpkg/lock-frontend
+            yum install tar gzip
             apt install curl
             curl -fsSL https://deb.nodesource.com/setup_14.x | -E bash -
             apt-get install -y nodejs
