@@ -137,7 +137,7 @@ jobs:
       #       --tags project=udapeople_frontend
       # - destroy-environment
       - persist_to_workspace:
-          root: ~/project/.circleci
+          root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
 
