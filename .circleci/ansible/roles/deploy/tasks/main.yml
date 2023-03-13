@@ -5,11 +5,15 @@
     path: ~/web
     state: directory
 
-# - name: Copy index test page
-#   template:
-#     src: "backend/artifact.tar.gz"
-#     dest: "~/web/artifact.tar.gz"
-
+- name: Copy index test page
+  template:
+    src: "artifact.tar.gz"
+    dest: "~/web/artifact.tar.gz"
+    
+- name: tar archive dir 
+  shell: |
+    sudo apt install tar
+    tar ~/web/artifact.tar.gz
 # - name: Executing node
 #   shell: |
 #     pm2 start ~/web/index.js -f
