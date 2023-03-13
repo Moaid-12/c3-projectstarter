@@ -119,28 +119,48 @@ jobs:
       - run:
           command: |
             yum -y install tar gzip
-      # - run:
-      #     name: Ensure back-end infrastructure exists
-      #     command: |
-      #       aws cloudformation deploy \
-      #       --template-file .circleci/files/backend.yml \
-      #       --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-      #       --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
-      #       --tags project=udapeople_backend
-      # - destroy-environment
-      # - run:
-      #     name: Ensure front-end infrastructure exist
-      #     command: |
-      #       aws cloudformation deploy \
-      #       --template-file .circleci/files/frontend.yml \
-      #       --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-      #       --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
-      #       --tags project=udapeople_frontend
-      
+      - run:
+          name: Ensure back-end infrastructure exists
+          command: |
+            aws cloudformation deploy \
+            --template-file .circleci/files/backend.yml \
+            --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
+            --tags project=udapeople_backend
+      - run:
+          name: Ensure front-end infrastructure exist
+          command: |
+            aws cloudformation deploy \
+            --template-file .circleci/files/frontend.yml \
+            --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
+            --tags project=udapeople_frontend
+      - destroy-environment
       - persist_to_workspace:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
+
+  configure-infrastructure:
+    docker:
+      - image: cimg/python:3.11.2
+    steps:
+      - checkout
+      - add_ssh_keys:
+              # You can get this ID in the section where you registered the SSH Key
+              fingerprints: ["17:ad:46:99:4e:16:a7:f4:8c:f0:74:2f:c6:ee:47:28"] 
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install Ansible
+          command: |
+            pip install --user ansible
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            cat ~/inventory.txt
+            cat configure-server.yml
+           #ansible-playbook -i inventory.txt configure-server.yml
 workflows:
   default:
     jobs:
@@ -154,8 +174,9 @@ workflows:
       #     requires: [build-frontend]
       # - scan-backend:
       #     requires: [build-backend]
-      - deploy-infrastructure
-          # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          # filters:
-          #   branches:
-          #     only: [master]
+      # - deploy-infrastructure:
+      #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      #     filters:
+      #       branches:
+      #         only: [master]
+      - configure-infrastructure
