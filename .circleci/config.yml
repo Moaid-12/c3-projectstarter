@@ -116,9 +116,9 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run:
-          command: |
-            yum -y install tar gzip
+#       - run:
+#           command: |
+#             yum -y install tar gzip
       # - run:
       #     name: Ensure back-end infrastructure exists
       #     command: |
@@ -161,7 +161,6 @@ jobs:
           name: Run Playbook and Configure server
           command: |
             ls ~/
-            cat inventory.txt
             #cat configure-server.yml
            #ansible-playbook -i inventory.txt configure-server.yml
 workflows:
