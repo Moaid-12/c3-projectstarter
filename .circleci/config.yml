@@ -180,6 +180,7 @@ jobs:
   run-migrations:
     docker:
       - image: circleci/node:13.8.0
+      
     steps:
       - checkout
       - restore_cache:
@@ -209,18 +210,10 @@ jobs:
             
   deploy-frontend:
     docker:
-      - image: cimg/node:18.15.0
+      - image: circleci/node:13.8.0
+      - image: amazon/aws-cli
     steps:
       - checkout
-      - run:
-          command:
-            yarn add unzip
-      - run:
-          name: install dependencies
-          command: |
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-            unzip awscliv2.zip 
-            ls ~project/circleci
       - run:
           name: pick api for backend
           command: |
