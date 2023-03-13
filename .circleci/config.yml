@@ -197,15 +197,11 @@ jobs:
           name: Send migration status to kvdb.io OR memstash.io
           command: | 
             cd backend
-            cat migrations_dump.txt
-            #curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}  -d '1'
-            #if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
-            #then
-                  # If you are using memstash.io, generate the token "7933fe63-4687-4fa1-8426-aa25aa1730ec" on the website
-              #curl -H "Content-Type: text/plain" -H "token: 7933fe63-4687-4fa1-8426-aa25aa1730ec" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
-              # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first 
-              echo sssssss
-            #fi
+            
+            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            then 
+              curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}  -d '1'
+            fi
             #curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}
             
   deploy-frontend:
@@ -214,6 +210,10 @@ jobs:
     steps:
       - checkout
       - run:
+          command: |
+            yum -y install tar gzip
+      - run:
+          name: install dependencies
           command: |
             curl --silent --location https://rpm.nodesource.com/setup_13.x | bash -
             yum -y install nodejs
@@ -227,7 +227,7 @@ jobs:
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
       - run:
-         name: install dependencies
+         name: Deploy frontend objects
          command: |
            cd frontend
            npm install
