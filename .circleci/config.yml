@@ -245,14 +245,14 @@ jobs:
               # You can get this ID in the section where you registered the SSH Key
               fingerprints: ["17:ad:46:99:4e:16:a7:f4:8c:f0:74:2f:c6:ee:47:28"]    
       - run: install Nodejs dependencies
-          command: |
+          command:|
             pip install nodejs
       - run: install dependencies
-          command: |
+          command:|
             yum install tar gzip
 #       - run:
 #           name: Install Ansible
-#           command: |
+#           command:|
 #             pip install --user ansible
 #       - attach_workspace:
 #           at: ~/
