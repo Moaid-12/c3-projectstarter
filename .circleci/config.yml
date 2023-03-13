@@ -149,9 +149,7 @@ jobs:
       - add_ssh_keys:
               # You can get this ID in the section where you registered the SSH Key
               fingerprints: ["17:ad:46:99:4e:16:a7:f4:8c:f0:74:2f:c6:ee:47:28"] 
-      - run:
-          command: |
-            yum -y install tar gzip
+      
       - attach_workspace:
           at: ~/
       - run:
