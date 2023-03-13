@@ -195,13 +195,14 @@ jobs:
       - run:
           name: Send migration status to kvdb.io OR memstash.io
           command: |   
-            curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}  -d '1'
-            #if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
-            #then
+            #curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}  -d '1'
+            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            then
                   # If you are using memstash.io, generate the token "7933fe63-4687-4fa1-8426-aa25aa1730ec" on the website
               #curl -H "Content-Type: text/plain" -H "token: 7933fe63-4687-4fa1-8426-aa25aa1730ec" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
               # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first 
-            #fi
+              echo sssssss
+            fi
             curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}
             
   deploy-frontend:
@@ -215,6 +216,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            curl -sL https://rpm.nodesource.com/setup_10.x | bash -
             yum install nodejs
       - run:
           name: pick api for backend
