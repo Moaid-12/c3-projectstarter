@@ -135,13 +135,13 @@ jobs:
 #             --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
 #             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
 #             --tags project=udapeople_frontend
-#       - run:
-#           name: Add the EC2 instance IP to the Ansible inventory
-#           command: |
-#             cd .circleci/ansible
-#             aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' \
-#             --output text >> inventory.txt
-#             cat inventory.txt
+      - run:
+          name: Add the EC2 instance IP to the Ansible inventory
+          command: |
+            cd .circleci/ansible
+            aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> inventory.txt
+            cat inventory.txt
 #       - destroy-environment
       - persist_to_workspace:
           root: ~/
@@ -162,12 +162,12 @@ jobs:
 #             pip install --user ansible
       - attach_workspace:
           at: ~/
-      
       - run:
           name: Run Playbook and Configure server
           command: | 
             cd .circleci/ansible
             cat inventory.txt
+            cat ~/project/.circleci/ansible/inventory.txt
             #ansible-playbook -i inventory.txt configure-server.yml
 workflows:
   default:
