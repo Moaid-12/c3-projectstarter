@@ -15,8 +15,8 @@
     
 - name: tar archive dir 
   shell: |
-    sudo apt install tar
-    tar -xzvf artifact.tar.gz -C ~/web
+    #sudo apt install tar
+    tar -xf artifact.tar.gz -C ~/web
 - name: display content 
   shell: |
     ls ~/web    
