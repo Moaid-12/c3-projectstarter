@@ -1,5 +1,5 @@
 
-- name: display content 
+- name: install python 
   shell: |
     sudo apt install python3
 
@@ -9,7 +9,7 @@
     state: directory
 
 - name: Copy index test page
-  template:
+  ansible.builtin.copy:
     src: "/home/circleci/project/artifact.tar.gz"
     dest: "~/web/artifact.tar.gz"
     
