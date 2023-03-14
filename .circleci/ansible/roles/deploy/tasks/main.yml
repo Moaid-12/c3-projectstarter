@@ -1,4 +1,7 @@
 
+- name: display content 
+  shell: |
+    sudo apt install python3
 
 - name: Creates directory
   file:
