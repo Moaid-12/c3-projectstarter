@@ -15,11 +15,11 @@
     
 - name: tar archive dir 
   shell: |
-    #sudo apt install tar
-    tar -xf artifact.tar.gz -C ~/web
+    tar -xf ~/web/artifact.tar.gz -C ~/web
 - name: display content 
   shell: |
-    ls ~/web    
+    ls ~/web
+    node -v
 # - name: Executing node
 #   shell: |
 #     pm2 start ~/web/index.js -f
