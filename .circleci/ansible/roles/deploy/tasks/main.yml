@@ -18,7 +18,7 @@
     tar -xf ~/web/artifact.tar.gz -C ~/web
 - name: start backend 
   shell: |
-    ls ~/web
+    cd web
     npm install
     pm2 stop default
     pm2 start npm -- start
