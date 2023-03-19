@@ -166,7 +166,7 @@ jobs:
           name: Add the EC2 instance IP to the Ansible inventory
           command: |
             cd .circleci/ansible
-            aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople" \
+            aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople_backend" \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> inventory.txt
             cat inventory.txt
@@ -235,7 +235,7 @@ jobs:
       - run:
           name: pick api for backend
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople" \
+            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople_backend" \
             --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
