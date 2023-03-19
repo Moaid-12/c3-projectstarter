@@ -298,9 +298,15 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout  
+      - run: 
+          name: install curl dependencies
+          command: |  
+            sudo apt install curl
       - run:
           name: backend smoke-test
           command: |
+            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople_backend" \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
