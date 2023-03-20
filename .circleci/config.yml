@@ -346,9 +346,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install depnt
+          command: |
+            yum -y install tar gzip
+      - run:
           name: fetch oldworkflowId
           command: |
-            pwd
+            ls ~/
             aws cloudformation \
             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
             --no-paginate --output text >> ~/OldWorkflowID.txt
