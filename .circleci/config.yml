@@ -385,7 +385,7 @@ jobs:
           name: Fetch OldStack WorkflowID
           command: |
             ls 
-            OldWorkflowID= cat ~/OldWorkflowID.txt
+            OldWorkflowID= $(< ~/OldWorkflowID.txt)
             echo OldWorkflowID: "${OldWorkflowID}"
             # Fetch the Old workflow ID
 #             export OldWorkflowID=$(aws cloudformation \
