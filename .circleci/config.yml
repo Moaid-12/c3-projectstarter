@@ -210,9 +210,11 @@ jobs:
             cd backend
             npm install
             echo '.....................................'
-            npm audit fix --audit-level=critical --force 
+            npm audit fix --audit-level=critical
             # Run and save the migration output
+            echo '.....................................'
             npm run migrations > migrations_dump.txt
+            cat migrations_dump.txt
             
       - run:
           name: Send migration status to kvdb.io OR memstash.io
