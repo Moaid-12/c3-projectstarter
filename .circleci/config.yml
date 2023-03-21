@@ -385,8 +385,8 @@ jobs:
           name: Fetch OldStack WorkflowID
           command: |
             # Fetch the Old workflow ID
-            #OldWorkflowID=$(<~/OldWorkflowID.txt)
-            echo OldWorkflowID: "304053513792"
+            OldWorkflowID=$(<~/OldWorkflowID.txt)
+            echo OldWorkflowID: "${OldWorkflowID}"
             echo CIRCLE_WORKFLOW_ID: "${CIRCLE_WORKFLOW_ID:0:7}"
             # Fetch the stack names          
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
@@ -396,8 +396,8 @@ jobs:
             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" =~ "${OldWorkflowID}" ]]
             then
             echo '................DeleteConfirm..................'
-            aws s3 rm "s3://udapeople-304053513792" --recursive
-            aws s3 rb s3://udapeople-304053513792 --force
+            aws s3 rm s3://udapeople-${OldWorkflowID} --recursive
+            aws s3 rb s3://udapeople-${OldWorkflowID} --force
             aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
             aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
             else
