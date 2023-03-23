@@ -15,7 +15,7 @@
     
 - name: tar archive dir 
   shell: |
-    tar -xf ~/artifact.tar.gz -C ~/web
+    tar -xf ~/artifact.tar.gz -C ~/
 - name: start backend 
   shell: |
     npm install
