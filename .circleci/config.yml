@@ -213,8 +213,9 @@ jobs:
             echo '..#...................................'
             npm run build
             echo '.....................................'
-            npm run migrations > migrations_dump.txt
-            cat migrations_dump.txt
+            ts-node -r dotenv/config node_modules/.bin/typeorm migration:run
+            #npm run migrations > migrations_dump.txt
+            #cat migrations_dump.txt
             
       - run:
           name: Send migration status to kvdb.io OR memstash.io
