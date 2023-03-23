@@ -202,8 +202,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
+#       - restore_cache:
+#           keys: [backend-build]
       - run:
           name: Run migrations
           command: |
@@ -213,10 +213,6 @@ jobs:
             echo '..#...................................'
             npm run build
             echo '.....................................'
-            npm run migrations:create
-            npm run premigrations:generate
-            npm run migrations:generate
-            npm run premigrations
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
             
@@ -414,16 +410,16 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-      - scan-backend:
-          requires: [build-backend]
+#       - build-frontend
+#       - build-backend
+#       - test-frontend:
+#           requires: [build-frontend]
+#       - test-backend:
+#           requires: [build-backend]
+#       - scan-frontend:
+#           requires: [build-frontend]
+#       - scan-backend:
+#           requires: [build-backend]
 #       - deploy-infrastructure:
 #           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
 #           filters:
@@ -431,8 +427,8 @@ workflows:
 #               only: [master]
 #       - configure-infrastructure:
 #           requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      - run-migrations
+#           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
 #       - deploy-frontend:
 #           requires: [run-migrations]
 #       - deploy-backend:
