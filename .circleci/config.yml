@@ -213,9 +213,12 @@ jobs:
             echo '..#...................................'
             npm run build
             echo '.....................................'
-            ts-node -r dotenv/config node_modules/.bin/typeorm migration:run
-            #npm run migrations > migrations_dump.txt
-            #cat migrations_dump.txt
+            npm run migrations:create
+            npm run premigrations:generate
+            npm run migrations:generate
+            npm run premigrations
+            npm run migrations > migrations_dump.txt
+            cat migrations_dump.txt
             
       - run:
           name: Send migration status to kvdb.io OR memstash.io
@@ -225,7 +228,7 @@ jobs:
             then 
               curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "1"
             fi
-            #curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_${CIRCLE_WORKFLOW_ID:0:7}
+            curl --insecure https://kvdb.io/Lg3oiw6LwbK7p17JCPhw4b/migration_${CIRCLE_WORKFLOW_ID:0:7}
             
   deploy-frontend:
     docker:
