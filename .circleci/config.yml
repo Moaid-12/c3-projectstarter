@@ -211,7 +211,10 @@ jobs:
             npm install
             echo '.....................................'
             npm audit fix --audit-level=critical
+            npm audit fix --force
             # Run and save the migration output
+            echo '.....................................'
+            npm run build
             echo '.....................................'
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
