@@ -3,22 +3,21 @@
   shell: |
     sudo apt install python3
 
-- name: Creates directory
-  file:
-    path: ~/web
-    state: directory
+# - name: Creates directory
+#   file:
+#     path: ~/web
+#     state: directory
 
 - name: Copy index test page
   ansible.builtin.copy:
     src: "/home/circleci/project/artifact.tar.gz"
-    dest: "~/web/artifact.tar.gz"
+    dest: "~/artifact.tar.gz"
     
 - name: tar archive dir 
   shell: |
-    tar -xf ~/web/artifact.tar.gz -C ~/web
+    tar -xf ~/artifact.tar.gz -C ~/web
 - name: start backend 
   shell: |
-    cd web
     npm install
     pm2 stop default
     pm2 start npm -- start
