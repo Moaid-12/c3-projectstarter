@@ -288,6 +288,7 @@ jobs:
             cd backend
             npm i
             npm run build
+            npm run migrations
             cd ..
             tar -C backend -czvf artifact.tar.gz .
             pwd
