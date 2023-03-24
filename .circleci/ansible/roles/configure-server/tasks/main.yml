@@ -33,4 +33,4 @@
   become: yes
   copy:
     src: myenv.sh
-    dest: /ect/profile.d/
+    dest: /etc/profile.d/
