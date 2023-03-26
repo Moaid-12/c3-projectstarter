@@ -202,8 +202,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-#       - restore_cache:
-#           keys: [backend-build]
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Run migrations
           command: |
@@ -288,6 +288,7 @@ jobs:
             cd backend
             npm install
             npm run build
+            npm run migrations
             cd ..
             tar -C backend -czvf artifact.tar.gz .
             pwd
